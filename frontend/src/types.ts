@@ -97,3 +97,57 @@ export interface ReferenceCascade {
     passes: CascadePass[];
   };
 }
+
+// Mirrors faultline/wallet_lookup.py's return shape exactly (section 14,
+// CLAUDE.md, 2026-09-08). Every field is either real data from the live
+// pipeline or an honest, named reason it's missing -- never a fabricated
+// number filling a gap.
+
+export interface WalletExposurePosition {
+  protocol: string;
+  asset_symbol: string;
+  asset_address: string;
+  side: "supply" | "borrow";
+  amount: number;
+  usage_as_collateral: boolean;
+  price_usd: number | null;
+}
+
+export interface WalletShockTarget {
+  asset_symbol: string;
+  asset_address: string;
+  pool_address: string | null;
+  pool_pair_other_token?: string;
+  pool_tvl_usd?: number;
+  reason?: string;
+}
+
+export interface WalletNotFound {
+  address: string;
+  found: false;
+  message: string;
+}
+
+export interface WalletExposureIncomplete {
+  address: string;
+  found: true;
+  health_factor_computable: false;
+  reason: string;
+  positions: WalletExposurePosition[];
+}
+
+export interface WalletExposureComplete {
+  address: string;
+  found: true;
+  health_factor_computable: true;
+  health_factor: number;
+  collateral_value_usd: number;
+  debt_value_usd: number;
+  positions: WalletExposurePosition[];
+  shock_target: WalletShockTarget | null;
+}
+
+export type WalletExposureResult =
+  | WalletNotFound
+  | WalletExposureIncomplete
+  | WalletExposureComplete;

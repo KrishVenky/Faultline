@@ -2,9 +2,11 @@ import { Canvas } from "@react-three/fiber";
 import { useEffect, useState } from "react";
 import { DepthChart } from "./components/DepthChart";
 import { Scene } from "./components/Scene";
+import { WalletLookup } from "./components/WalletLookup";
 import { buildTimeline, formatUsd } from "./timeline";
 import { usePlayback } from "./usePlayback";
 import { useLiveCascade } from "./useLiveCascade";
+import { useWalletExposure } from "./useWalletExposure";
 import type { DepthProfile, ReferenceCascade } from "./types";
 
 export default function App() {
@@ -24,6 +26,7 @@ export default function App() {
   }, []);
 
   const live = useLiveCascade(shockPct, mode === "live");
+  const walletExposure = useWalletExposure();
 
   if (error) {
     return (
@@ -58,6 +61,7 @@ export default function App() {
         onShockPctChange={setShockPct}
         liveLoading={live.loading}
         liveError={live.error}
+        walletExposure={walletExposure}
       />
     </div>
   );
@@ -70,6 +74,7 @@ function ShockControls(props: {
   onShockPctChange: (v: number) => void;
   liveLoading: boolean;
   liveError: string | null;
+  walletExposure: ReturnType<typeof useWalletExposure>;
 }) {
   return (
     <div
@@ -117,6 +122,13 @@ function ShockControls(props: {
               (<code>uvicorn faultline.api:app --port 8000</code>)?
             </div>
           )}
+
+          <WalletLookup
+            onLookup={props.walletExposure.lookup}
+            loading={props.walletExposure.loading}
+            error={props.walletExposure.error}
+            data={props.walletExposure.data}
+          />
         </>
       )}
     </div>

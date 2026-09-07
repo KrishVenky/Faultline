@@ -319,3 +319,61 @@ the 3D entirely.
 - Do not mock data to unblock yourself. Report the blocker instead.
 - Do not write project code before I confirm the hackathon window is open.
   Only in-window work is judged. (Window confirmed open 2026-09-05.)
+
+## 12. Post-ETHOnline scope (October and beyond -- explicitly not this week)
+
+Added 2026-09-08. Faultline is going to be extended after ETHOnline into a
+B2B risk intelligence application, and will enter other competitions
+around/after October. That's real, and it has its own calendar. It is not
+a reason to widen what ships for the Sept 13 submission.
+
+Explicitly October's job, not this week's, no matter how a future message
+frames it: a dashboard, wallet-connect at scale, comprehensive analytics,
+portfolio rebalancing, multi-chain, independent LLM risk scoring. If a
+future instruction references the post-hackathon vision, that is future
+scope, not license to pull any of this in before the 13th. Flag it
+immediately if that happens rather than quietly building toward it.
+
+## 13. Final sprint: absolute priority order, 5 days to submission
+
+Added 2026-09-08. Do not reorder this.
+
+1. Demo video: recorded, finalized, 2-4 min, human narration, per section
+   10's rules (no em dashes, no inflated claims, the depth-explanation
+   pairing from section 9 holds in narration too).
+2. ETHGlobal submission form: complete, both locked partner prizes
+   selected (The Graph, Uniswap Foundation -- section 4), AI disclosure
+   written accurately.
+3. Everything else, including section 14's feature, is lower priority than
+   1 and 2 and gets cut the moment it threatens either.
+
+**Hard checkpoint: day 4 of 5**, not day 5 -- day 5 is buffer for the video
+and a possible stuck recording session. If section 14's wallet-lookup
+feature is not cleanly working by end of day 4, REVERT to the existing
+two-wallet demo. A half-working generalization is worse than the finished,
+reconciled demo already in hand. Report against this checkpoint honestly,
+not optimistically.
+
+## 14. Wallet-lookup feature (scoped addition to section 9's build plan)
+
+Added 2026-09-08. The one feature actually worth adding this week, scoped
+tightly, subject to section 13's day-4 checkpoint:
+
+- Arbitrary wallet lookup on the live solver: a real address input in Live
+  mode, running the actual pipeline against whatever that wallet actually
+  holds. Every failure mode -- no debt, no queryable pool for its
+  collateral asset, an unhandled protocol, an eMode category not yet
+  supported -- handled honestly and stated as what it is, never faked or
+  silently defaulted (rule 2 in section 2, same standard as everywhere
+  else in this project).
+- No wallet-connect UI, no auth, no new protocols. Address input only.
+- If time allows after that (and only after that): a retrieval-only chat
+  panel. It may narrate and explain fields already present in the
+  solver's JSON output. It may NOT generate a risk score or any claim not
+  directly traceable to that output. Same grounding discipline as rule 1
+  in section 2 (deterministic solver, no LLM in the solve path) applied
+  to chat: the panel narrates real output, it is not a second solve path.
+- React Bits MCP setup is permitted for this feature's UI chrome only --
+  input field, chat bubbles, loading states. Do not touch the already-
+  built, already-verified core visualization with it. That visualization
+  is frozen unless something in it is actually broken.

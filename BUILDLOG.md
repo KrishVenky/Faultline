@@ -1936,6 +1936,87 @@ and the pairing rule right. Section 9 step 4 (keep the 26-wallet and
 scale-mismatch findings out of the primary viz) already holds by
 construction -- neither is wired into anything the frontend renders.
 
+## 2026-09-08 — Scope locked for the final 5 days; landed in CLAUDE.md
+
+Two things, both now in CLAUDE.md (sections 12-14) rather than living only
+in chat, per the project's own standing rule about that:
+
+1. **Post-hackathon scope is real but explicitly not this week.** Faultline
+   extends into a B2B risk intelligence product after ETHOnline, targets
+   other competitions around October, and that has its own calendar. A
+   dashboard, wallet-connect at scale, comprehensive analytics, portfolio
+   rebalancing, multi-chain, independent LLM risk scoring -- all real,
+   none of it this week. CLAUDE.md section 12 exists specifically so a
+   future message referencing that vision doesn't get read as license to
+   widen scope before the 13th.
+2. **Absolute priority order for the final 5 days** (section 13): video,
+   then the submission form, then everything else including the one new
+   feature below -- and that feature gets cut the moment it threatens
+   either of the first two. Hard checkpoint: day 4 of 5, revert to the
+   existing two-wallet demo if the feature isn't cleanly working by then.
+
+**New scoped feature** (section 14): arbitrary wallet lookup on the live
+solver -- a real address input in Live mode, run through the actual
+pipeline, every failure mode (no debt, no queryable pool, unhandled
+protocol/eMode category) stated honestly rather than faked. No wallet
+connect, no auth, no new protocols. A retrieval-only chat panel afterward
+if time allows, narrating fields already in the solver's JSON output only
+-- no independent risk scoring, same no-LLM-in-the-solve-path discipline
+already governing the actual solver, now applied to chat too. React Bits
+MCP permitted for this feature's UI chrome only; the existing core
+visualization is frozen unless something in it is actually broken.
+
+One small reference-drift note, corrected in CLAUDE.md directly rather
+than just logged here: the instruction cited "rule 1 in section 3" for the
+no-LLM grounding discipline -- that rule is real, it's rule 1 in section 2
+(Architectural rules), section 3 is Stack. Same pattern as before, minor
+this time since the rule itself exists, just filed under the wrong number.
+Cited correctly in section 14.
+
+Starting on the wallet-lookup feature now, day 1 of the 5-day window.
+
+## 2026-09-08 — Wallet lookup backend: works, one real bug found and fixed
+
+`faultline/wallet_lookup.py`: `fetch_wallet_exposure(address)`. Reuses
+`aave.py`/`compound.py`/`health_factor.py` as-is -- none of them were ever
+hardcoded to the two demo wallets, only `live_cascade.py` and the frontend
+were. Honest failure modes, not faked: no positions found returns
+`found: false` with a plain message; any collateral or debt asset with no
+live Aave oracle price returns `health_factor_computable: false` and names
+the asset, rather than computing an HF on incomplete prices. Non-relevant
+dust (unlisted-as-collateral supply, tiny balances) doesn't gate the
+computation -- matches how HF actually works.
+
+Verified against four wallets, not just the two already-reconciled ones:
+- Primary demo wallet: HF 1.7175 (combined Aave + Compound, matches known
+  range for this wallet).
+- Victim wallet: HF 1.8038.
+- `0x55048e0d...` -- picked from deep in the 200-wallet research list,
+  never individually inspected before this test: WBTC/wstETH collateral,
+  dust debt, HF computed correctly (absurdly high, ~5e11, because debt is
+  genuinely ~$0.000004 -- a correct result of real dust debt, not a bug).
+- A zero-position address: correctly returns `found: false`.
+
+**Real bug caught while sanity-checking the first result, not from reading
+the code**: the primary wallet's `shock_target` picked a real but thin
+wstETH/USDT pool ($2,797 TVL) instead of the wstETH/WETH pool we've used
+all along ($9.29M TVL). Root cause: pool eligibility was filtered against
+`known_assets = this wallet's own held assets` -- correct for the
+multi-wallet exposure graph it was designed for (Phase 1), too narrow for
+a single arbitrary wallet, since the deepest pool for someone's collateral
+is very often paired against WETH, which that specific wallet may not
+itself hold. Fixed: added `aave.fetch_all_reserve_addresses()` (every
+currently-listed Aave reserve address, a real live query, not a hardcoded
+list) and use that as the eligibility reference set for single-wallet
+lookups instead. Re-verified: all four test wallets now resolve to the
+correct, deep, WETH-paired pool. This is a quality fix, not a correctness
+one -- the thin pool was real, not fabricated, just a worse answer than
+was findable.
+
+Not yet done: the API endpoint, the frontend address input, and the
+optional chat panel. Backend piece is solid; checking in here rather than
+continuing silently into the frontend, per the day-4 checkpoint discipline.
+
 ## 2026-09-06 — Section 9 step 3: React Bits polish, depth chart first
 
 Order followed exactly as instructed: depth-chart inset, then the
@@ -2076,3 +2157,87 @@ the market price far enough to also reach the threshold for one of the
 other five wstETH-exposed wallets in the cohort is the next question --
 not yet computed, that's the actual thing Phase 2 needs to test and the
 next step of the joint hand-walk.
+
+
+## 2026-09-08 -- health_factor_computable: false, verified against a wallet that actually triggers it
+
+None of the four wallets tested when `wallet_lookup.py` was first built
+happened to exercise the missing-price branch -- all four either had every
+relevant asset priced or had no positions at all. Code inspection isn't
+enough for a failure path this central to the honesty claim (rule 2,
+section 2), so went looking for a real wallet that genuinely hits it.
+
+**Search**: needed a Compound v3 collateral/debt asset that is not an
+Aave v3 reserve at all, so `AaveOracle.getAssetPrice` has nothing
+configured for it. Checked `aave.fetch_all_reserve_addresses()` (67
+addresses) against COMP's own token address
+(`0xc00e94cb662c3520282e6f5717214004a7f26888`) -- not in the set. COMP is
+a real Compound v3 collateral asset (its USDC market) and confirmed not
+listed on Aave v3 Ethereum mainnet.
+
+Queried the Compound subgraph's `positionCollateralBalances` (schema note:
+nested filters like `collateralToken_: {token_: {symbol: ...}}` aren't
+supported -- "Child filter nesting not supported" -- had to resolve the
+COMP token id first via `tokens(where: {symbol: "COMP"})`, then filter
+`collateralToken_: {token: $tokenId}` one level deep) for a real wallet
+with non-dust COMP collateral. Found
+`0xd74f186194ab9219fafac5c2fe4b3270169666db`: 362.402434 COMP supplied as
+collateral, 2.838871 USDC borrowed, both on Compound v3.
+
+**Result, live, real wallet**:
+```json
+{
+  "health_factor_computable": false,
+  "reason": "No live oracle price available for COMP (0xc00e94cb662c3520282e6f5717214004a7f26888) -- Aave's oracle doesn't have this asset configured. Health factor is not shown rather than computed on incomplete prices.",
+  "positions": [
+    {"asset_symbol": "USDC", "side": "borrow", "amount": 2.838871, "price_usd": 0.9999207},
+    {"asset_symbol": "COMP", "side": "supply", "amount": 362.402434, "usage_as_collateral": true, "price_usd": null}
+  ]
+}
+```
+
+**[VERIFIED]** -- the honest-failure path renders correctly end-to-end
+against a real trigger, not just a code-reviewed assertion that it exists.
+No health factor is fabricated or silently omitted; the specific missing
+asset is named by symbol and address in the message. This closes the gap
+flagged before proceeding to the API endpoint and the Live-mode address
+input.
+
+
+## 2026-09-08 -- Wallet-lookup API endpoint and Live-mode UI, verified in-browser
+
+Backend (`faultline/wallet_lookup.py`) and the honest-failure path were
+already verified in isolation. Wired the rest through per section 14:
+
+**API**: `GET /wallet/{address}/exposure` in `faultline/api.py`, a thin
+pass-through to `fetch_wallet_exposure` -- same flat-JSON, no-Pydantic-model
+convention as every other endpoint. Smoke-tested live via the running
+uvicorn server (not just imported and called in a script) against both the
+COMP wallet (`0xd74f186194ab9219fafac5c2fe4b3270169666db`,
+`health_factor_computable: false`) and the primary cross-protocol demo
+wallet (`0x86aef245...711eb6`, HF 1.7175) -- both matched the direct
+Python-level results exactly.
+
+**Frontend**: `useWalletExposure.ts` (submit-triggered fetch, not
+debounced like the shock slider -- no drag gesture to coalesce here) and
+`components/WalletLookup.tsx` (input field, Go button, result display).
+Wired into `ShockControls` inside the existing Live-solver panel, gated
+on `mode === "live"` same as the shock slider. Scope held to exactly
+what section 14 specifies: input field plus result display, no dashboard,
+no wallet-connect. Does not touch `Scene.tsx`, `Cascade`, `Overlay`, or
+any other part of the frozen core cascade visualization -- purely additive
+to the side panel.
+
+**[VERIFIED] live in-browser**, both paths:
+- COMP wallet: honest-failure message renders verbatim ("No live oracle
+  price available for COMP ... Health factor is not shown rather than
+  computed on incomplete prices"), COMP position shown as "362.4824
+  (unpriced)" in the list, no HF displayed.
+- Demo wallet: HF 1.7175, collateral ,234,289 / debt ,883,153, shock
+  target "wstETH via wstETH/WETH pool (,316,813 TVL)", all 8 positions
+  listed (Aave + Compound, correct side/collateral labels). No console
+  errors on either lookup.
+
+Section 14's build order (endpoint, then UI, no chat panel yet) held.
+Still inside the day-4 checkpoint window -- this closed faster than the
+missing-price verification step, no schedule risk to flag.

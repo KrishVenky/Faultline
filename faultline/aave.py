@@ -69,6 +69,26 @@ query($categoryId: String!) {
 """
 
 
+ALL_RESERVES_QUERY = """
+{ reserves(first: 1000) { underlyingAsset } }
+"""
+
+
+def fetch_all_reserve_addresses() -> set[str]:
+    """Every currently-listed Aave v3 reserve address, lowercased. Used as
+    the pool-eligibility reference set for single-wallet lookup (section
+    14) -- broader than one wallet's own holdings on purpose: the pool
+    with the deepest real depth for a wallet's collateral asset is very
+    often paired against WETH/USDC/USDT, not necessarily an asset that
+    specific wallet happens to also hold. Still a real, address-verified,
+    governance-listed set, not an arbitrary allowlist -- same standing
+    behind the pool-selection rule (BUILDLOG.md, "Pool selection rule for
+    price impact"), just scoped to one wallet instead of a multi-wallet
+    graph's own accumulated asset set."""
+    data = query_subgraph(AAVE_V3_ETHEREUM_SUBGRAPH_ID, ALL_RESERVES_QUERY)
+    return {r["underlyingAsset"].lower() for r in data["reserves"]}
+
+
 TOP_BORROWERS_QUERY = """
 query($symbol: String!, $n: Int!) {
   userReserves(

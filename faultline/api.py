@@ -7,6 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from faultline import aave, compound
 from faultline.graph import build_graph
 from faultline.live_cascade import compute_live_cascade
+from faultline.wallet_lookup import fetch_wallet_exposure
 
 app = FastAPI(title="Faultline")
 
@@ -89,3 +90,13 @@ def cascade_live(shock_pct: float) -> dict:
     scenarios for a judge to land on."""
     shock_pct = max(0.0, min(90.0, shock_pct))
     return compute_live_cascade(shock_pct)
+
+
+@app.get("/wallet/{address}/exposure")
+def wallet_exposure(address: str) -> dict:
+    """Section 14 (CLAUDE.md, 2026-09-08): arbitrary wallet lookup, real
+    positions and prices against the live pipeline, no fixed demo pair.
+    Every failure mode (no positions, an unpriceable asset, no eligible
+    pool for the shock target) is returned honestly as data, not raised as
+    an error -- see faultline/wallet_lookup.py."""
+    return fetch_wallet_exposure(address)
