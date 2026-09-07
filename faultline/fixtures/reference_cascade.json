@@ -1,0 +1,640 @@
+{
+  "description": "Reference cascade: primary wallet's oracle-shock liquidation forces a wstETH sale through real Uniswap v3 depth, moving the market price enough to independently liquidate a second wallet with no shared protocol or debt asset.",
+  "shock": {
+    "asset_symbol": "wstETH",
+    "asset_address": "0x7f39c581f595b53c5cb19bd0b3f8da6c935e2ca0",
+    "price_before_usd": 3051.4799,
+    "price_after_oracle_shock_usd": 1718.7752,
+    "shock_pct": 43.674
+  },
+  "pool": {
+    "address": "0x109830a1aaad605bbf02a9dfa7b0b92ec2fb7daa",
+    "pair": "wstETH/WETH",
+    "fee_tier_bps": 1,
+    "depth_profile": {
+      "starting_liquidity": 5237117.975045375,
+      "ticks_to_depletion_pct": {
+        "50": 3,
+        "10": 3,
+        "5": 4,
+        "1": 4,
+        "0.1": 10
+      },
+      "curve": [
+        {
+          "ticks_crossed": 0,
+          "tick_idx": 2177,
+          "liquidity": 5237117.975045375
+        },
+        {
+          "ticks_crossed": 1,
+          "tick_idx": 2176,
+          "liquidity": 5223826.152437143
+        },
+        {
+          "ticks_crossed": 2,
+          "tick_idx": 2175,
+          "liquidity": 2875601.185238261
+        },
+        {
+          "ticks_crossed": 3,
+          "tick_idx": 2174,
+          "liquidity": 283403.1553085251
+        },
+        {
+          "ticks_crossed": 4,
+          "tick_idx": 2172,
+          "liquidity": 52329.23916995173
+        },
+        {
+          "ticks_crossed": 5,
+          "tick_idx": 2171,
+          "liquidity": 52104.8394166617
+        },
+        {
+          "ticks_crossed": 6,
+          "tick_idx": 2168,
+          "liquidity": 8723.601834737245
+        },
+        {
+          "ticks_crossed": 7,
+          "tick_idx": 2165,
+          "liquidity": 7793.927420582601
+        },
+        {
+          "ticks_crossed": 8,
+          "tick_idx": 2164,
+          "liquidity": 7834.73978606819
+        },
+        {
+          "ticks_crossed": 9,
+          "tick_idx": 2161,
+          "liquidity": 7838.588594625528
+        },
+        {
+          "ticks_crossed": 10,
+          "tick_idx": 2156,
+          "liquidity": 4561.561952788789
+        },
+        {
+          "ticks_crossed": 11,
+          "tick_idx": 2155,
+          "liquidity": 4561.561952788798
+        },
+        {
+          "ticks_crossed": 12,
+          "tick_idx": 2153,
+          "liquidity": 4561.561952788789
+        },
+        {
+          "ticks_crossed": 13,
+          "tick_idx": 2149,
+          "liquidity": 4520.7495873032
+        },
+        {
+          "ticks_crossed": 14,
+          "tick_idx": 2145,
+          "liquidity": 4520.7495873032
+        },
+        {
+          "ticks_crossed": 15,
+          "tick_idx": 2141,
+          "liquidity": 4500.329464903471
+        },
+        {
+          "ticks_crossed": 16,
+          "tick_idx": 2119,
+          "liquidity": 4540.110490002247
+        },
+        {
+          "ticks_crossed": 17,
+          "tick_idx": 2113,
+          "liquidity": 583.0370559668204
+        },
+        {
+          "ticks_crossed": 18,
+          "tick_idx": 2100,
+          "liquidity": 549.1468334145061
+        },
+        {
+          "ticks_crossed": 19,
+          "tick_idx": 2098,
+          "liquidity": 512.4117208714598
+        },
+        {
+          "ticks_crossed": 20,
+          "tick_idx": 2055,
+          "liquidity": 508.5629123141223
+        },
+        {
+          "ticks_crossed": 21,
+          "tick_idx": 2053,
+          "liquidity": 176303.25114680728
+        },
+        {
+          "ticks_crossed": 22,
+          "tick_idx": 2044,
+          "liquidity": 508.5629123141116
+        },
+        {
+          "ticks_crossed": 23,
+          "tick_idx": 2030,
+          "liquidity": 509.0550517596146
+        },
+        {
+          "ticks_crossed": 24,
+          "tick_idx": 2028,
+          "liquidity": 516.1629250732461
+        },
+        {
+          "ticks_crossed": 25,
+          "tick_idx": 2017,
+          "liquidity": 633.5751339485273
+        },
+        {
+          "ticks_crossed": 26,
+          "tick_idx": 2011,
+          "liquidity": 626.4672606348958
+        },
+        {
+          "ticks_crossed": 27,
+          "tick_idx": 1995,
+          "liquidity": 710.4911542976062
+        },
+        {
+          "ticks_crossed": 28,
+          "tick_idx": 1994,
+          "liquidity": 593.078945422325
+        },
+        {
+          "ticks_crossed": 29,
+          "tick_idx": 1992,
+          "liquidity": 592.586805976822
+        },
+        {
+          "ticks_crossed": 30,
+          "tick_idx": 1989,
+          "liquidity": 581.3530989631265
+        },
+        {
+          "ticks_crossed": 31,
+          "tick_idx": 1988,
+          "liquidity": 345.1293931919357
+        },
+        {
+          "ticks_crossed": 32,
+          "tick_idx": 1986,
+          "liquidity": 449.9663853485939
+        },
+        {
+          "ticks_crossed": 33,
+          "tick_idx": 1976,
+          "liquidity": 454.15813750393784
+        },
+        {
+          "ticks_crossed": 34,
+          "tick_idx": 1972,
+          "liquidity": 449.9663853485939
+        },
+        {
+          "ticks_crossed": 35,
+          "tick_idx": 1966,
+          "liquidity": 627.4488684973267
+        },
+        {
+          "ticks_crossed": 36,
+          "tick_idx": 1962,
+          "liquidity": 449.966385348594
+        },
+        {
+          "ticks_crossed": 37,
+          "tick_idx": 1959,
+          "liquidity": 3969.399736296278
+        },
+        {
+          "ticks_crossed": 38,
+          "tick_idx": 1953,
+          "liquidity": 3971.2143756802966
+        },
+        {
+          "ticks_crossed": 39,
+          "tick_idx": 1952,
+          "liquidity": 3969.400295472518
+        },
+        {
+          "ticks_crossed": 40,
+          "tick_idx": 1948,
+          "liquidity": 3724.584903005162
+        },
+        {
+          "ticks_crossed": 41,
+          "tick_idx": 1945,
+          "liquidity": 3726.3997062182516
+        },
+        {
+          "ticks_crossed": 42,
+          "tick_idx": 1944,
+          "liquidity": 3724.584903005162
+        },
+        {
+          "ticks_crossed": 43,
+          "tick_idx": 1939,
+          "liquidity": 3729.8837832163026
+        },
+        {
+          "ticks_crossed": 44,
+          "tick_idx": 1927,
+          "liquidity": 3730.489292552149
+        },
+        {
+          "ticks_crossed": 45,
+          "tick_idx": 1924,
+          "liquidity": 3729.8837832163026
+        },
+        {
+          "ticks_crossed": 46,
+          "tick_idx": 1922,
+          "liquidity": 3724.584903005162
+        },
+        {
+          "ticks_crossed": 47,
+          "tick_idx": 1908,
+          "liquidity": 3724.639773127911
+        },
+        {
+          "ticks_crossed": 48,
+          "tick_idx": 1876,
+          "liquidity": 3640.615879465201
+        },
+        {
+          "ticks_crossed": 49,
+          "tick_idx": 1873,
+          "liquidity": 3640.723970032059
+        },
+        {
+          "ticks_crossed": 50,
+          "tick_idx": 1860,
+          "liquidity": 3640.6690999093094
+        },
+        {
+          "ticks_crossed": 51,
+          "tick_idx": 1848,
+          "liquidity": 3640.5610093424516
+        },
+        {
+          "ticks_crossed": 52,
+          "tick_idx": 1843,
+          "liquidity": 3535.7240171857934
+        },
+        {
+          "ticks_crossed": 53,
+          "tick_idx": 1838,
+          "liquidity": 3553.3775983267897
+        },
+        {
+          "ticks_crossed": 54,
+          "tick_idx": 1837,
+          "liquidity": 3535.7240171857934
+        },
+        {
+          "ticks_crossed": 55,
+          "tick_idx": 1804,
+          "liquidity": 3522.3383883517486
+        },
+        {
+          "ticks_crossed": 56,
+          "tick_idx": 1774,
+          "liquidity": 2.9050374040643874
+        },
+        {
+          "ticks_crossed": 57,
+          "tick_idx": 1701,
+          "liquidity": 368.45436020892964
+        },
+        {
+          "ticks_crossed": 58,
+          "tick_idx": 1692,
+          "liquidity": 2.9050374040643874
+        },
+        {
+          "ticks_crossed": 59,
+          "tick_idx": 1643,
+          "liquidity": 5.856347486469584
+        },
+        {
+          "ticks_crossed": 60,
+          "tick_idx": 1627,
+          "liquidity": 12.800942223520043
+        },
+        {
+          "ticks_crossed": 61,
+          "tick_idx": 1623,
+          "liquidity": 9.849632141114846
+        },
+        {
+          "ticks_crossed": 62,
+          "tick_idx": 1622,
+          "liquidity": 2.9050374040643874
+        },
+        {
+          "ticks_crossed": 63,
+          "tick_idx": 1567,
+          "liquidity": 32.7897722809089
+        },
+        {
+          "ticks_crossed": 64,
+          "tick_idx": 1547,
+          "liquidity": 2.9050374040643874
+        },
+        {
+          "ticks_crossed": 65,
+          "tick_idx": 1524,
+          "liquidity": 344.20007766012793
+        },
+        {
+          "ticks_crossed": 66,
+          "tick_idx": 1522,
+          "liquidity": 2.9050374040643874
+        },
+        {
+          "ticks_crossed": 67,
+          "tick_idx": 1516,
+          "liquidity": 150.73747295240568
+        },
+        {
+          "ticks_crossed": 68,
+          "tick_idx": 1496,
+          "liquidity": 2.9050374040643874
+        },
+        {
+          "ticks_crossed": 69,
+          "tick_idx": 1477,
+          "liquidity": 1683.9300952224987
+        },
+        {
+          "ticks_crossed": 70,
+          "tick_idx": 1457,
+          "liquidity": 2.9050374040643874
+        },
+        {
+          "ticks_crossed": 71,
+          "tick_idx": 1383,
+          "liquidity": 2.909541003691758
+        },
+        {
+          "ticks_crossed": 72,
+          "tick_idx": 1382,
+          "liquidity": 2.9050374040643874
+        },
+        {
+          "ticks_crossed": 73,
+          "tick_idx": 1373,
+          "liquidity": 2.909541003691758
+        },
+        {
+          "ticks_crossed": 74,
+          "tick_idx": 1372,
+          "liquidity": 2.9050374040643874
+        },
+        {
+          "ticks_crossed": 75,
+          "tick_idx": 1323,
+          "liquidity": 15.89314489028419
+        },
+        {
+          "ticks_crossed": 76,
+          "tick_idx": 1309,
+          "liquidity": 16.28157554368811
+        },
+        {
+          "ticks_crossed": 77,
+          "tick_idx": 1304,
+          "liquidity": 3.2934680574683064
+        },
+        {
+          "ticks_crossed": 78,
+          "tick_idx": 1299,
+          "liquidity": 3.297971657095677
+        },
+        {
+          "ticks_crossed": 79,
+          "tick_idx": 1298,
+          "liquidity": 3.2934680574683064
+        },
+        {
+          "ticks_crossed": 80,
+          "tick_idx": 1289,
+          "liquidity": 2.9050374040643865
+        },
+        {
+          "ticks_crossed": 81,
+          "tick_idx": 1286,
+          "liquidity": 173.75915974247684
+        },
+        {
+          "ticks_crossed": 82,
+          "tick_idx": 1283,
+          "liquidity": 2.9050374040643874
+        },
+        {
+          "ticks_crossed": 83,
+          "tick_idx": 907,
+          "liquidity": 2.9052699611635506
+        },
+        {
+          "ticks_crossed": 84,
+          "tick_idx": 887,
+          "liquidity": 2.9050374040643874
+        },
+        {
+          "ticks_crossed": 85,
+          "tick_idx": 356,
+          "liquidity": 2.8009836189531394
+        },
+        {
+          "ticks_crossed": 86,
+          "tick_idx": -1562,
+          "liquidity": 2.800513606959559
+        }
+      ]
+    },
+    "liquidity_at_shocked_price": 2.800513606959559
+  },
+  "graph_before": {
+    "nodes": [
+      {
+        "id": "wallet:0x86aef245207e2f93fba083d51852c91a7e711eb6",
+        "kind": "wallet",
+        "address": "0x86aef245207e2f93fba083d51852c91a7e711eb6"
+      },
+      {
+        "id": "asset:0x7f39c581f595b53c5cb19bd0b3f8da6c935e2ca0",
+        "kind": "asset",
+        "address": "0x7f39c581f595b53c5cb19bd0b3f8da6c935e2ca0",
+        "symbol": "wstETH"
+      },
+      {
+        "id": "asset:0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+        "kind": "asset",
+        "address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+        "symbol": "USDC"
+      },
+      {
+        "id": "asset:0xcbb7c0000ab88b473b1f5afd9ef808440eed33bf",
+        "kind": "asset",
+        "address": "0xcbb7c0000ab88b473b1f5afd9ef808440eed33bf",
+        "symbol": "cbBTC"
+      },
+      {
+        "id": "asset:0xdac17f958d2ee523a2206206994597c13d831ec7",
+        "kind": "asset",
+        "address": "0xdac17f958d2ee523a2206206994597c13d831ec7",
+        "symbol": "USDT"
+      },
+      {
+        "id": "wallet:0xcc997fe9fdd5957ca3060af68318f754d75016d3",
+        "kind": "wallet",
+        "address": "0xcc997fe9fdd5957ca3060af68318f754d75016d3"
+      }
+    ],
+    "edges": [
+      {
+        "source": "wallet:0x86aef245207e2f93fba083d51852c91a7e711eb6",
+        "target": "asset:0x7f39c581f595b53c5cb19bd0b3f8da6c935e2ca0",
+        "protocol": "aave_v3",
+        "side": "supply",
+        "amount_wei": 415589657508963805700,
+        "asset_decimals": 18,
+        "usage_as_collateral": true,
+        "market": null,
+        "liquidation_threshold_bps": 8100,
+        "liquidation_bonus_bps": 10600,
+        "liquidation_factor": null,
+        "liquidate_collateral_factor": null
+      },
+      {
+        "source": "wallet:0x86aef245207e2f93fba083d51852c91a7e711eb6",
+        "target": "asset:0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+        "protocol": "aave_v3",
+        "side": "supply",
+        "amount_wei": 1,
+        "asset_decimals": 6,
+        "usage_as_collateral": false,
+        "market": null,
+        "liquidation_threshold_bps": 7800,
+        "liquidation_bonus_bps": 10450,
+        "liquidation_factor": null,
+        "liquidate_collateral_factor": null
+      },
+      {
+        "source": "wallet:0x86aef245207e2f93fba083d51852c91a7e711eb6",
+        "target": "asset:0xcbb7c0000ab88b473b1f5afd9ef808440eed33bf",
+        "protocol": "aave_v3",
+        "side": "supply",
+        "amount_wei": 99997838,
+        "asset_decimals": 8,
+        "usage_as_collateral": true,
+        "market": null,
+        "liquidation_threshold_bps": 7800,
+        "liquidation_bonus_bps": 10750,
+        "liquidation_factor": null,
+        "liquidate_collateral_factor": null
+      },
+      {
+        "source": "wallet:0x86aef245207e2f93fba083d51852c91a7e711eb6",
+        "target": "asset:0xdac17f958d2ee523a2206206994597c13d831ec7",
+        "protocol": "aave_v3",
+        "side": "borrow",
+        "amount_wei": 640818534135,
+        "asset_decimals": 6,
+        "usage_as_collateral": false,
+        "market": null,
+        "liquidation_threshold_bps": 7800,
+        "liquidation_bonus_bps": 10450,
+        "liquidation_factor": null,
+        "liquidate_collateral_factor": null
+      },
+      {
+        "source": "asset:0x7f39c581f595b53c5cb19bd0b3f8da6c935e2ca0",
+        "target": "wallet:0xcc997fe9fdd5957ca3060af68318f754d75016d3",
+        "protocol": "aave_v3",
+        "side": "supply",
+        "amount_wei": 2423258106231599065500,
+        "asset_decimals": 18,
+        "usage_as_collateral": true,
+        "market": null,
+        "liquidation_threshold_bps": 8100,
+        "liquidation_bonus_bps": 10600,
+        "liquidation_factor": null,
+        "liquidate_collateral_factor": null
+      },
+      {
+        "source": "asset:0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+        "target": "wallet:0xcc997fe9fdd5957ca3060af68318f754d75016d3",
+        "protocol": "aave_v3",
+        "side": "supply",
+        "amount_wei": 1,
+        "asset_decimals": 6,
+        "usage_as_collateral": false,
+        "market": null,
+        "liquidation_threshold_bps": 7800,
+        "liquidation_bonus_bps": 10450,
+        "liquidation_factor": null,
+        "liquidate_collateral_factor": null
+      },
+      {
+        "source": "asset:0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+        "target": "wallet:0xcc997fe9fdd5957ca3060af68318f754d75016d3",
+        "protocol": "aave_v3",
+        "side": "borrow",
+        "amount_wei": 3367923015415,
+        "asset_decimals": 6,
+        "usage_as_collateral": false,
+        "market": null,
+        "liquidation_threshold_bps": 7800,
+        "liquidation_bonus_bps": 10450,
+        "liquidation_factor": null,
+        "liquidate_collateral_factor": null
+      }
+    ]
+  },
+  "cascade": {
+    "converged": true,
+    "pass_count": 2,
+    "final_price_usd": 0.0028,
+    "liquidated_wallets": [
+      "0x86aef245207e2f93fba083d51852c91a7e711eb6",
+      "0xcc997fe9fdd5957ca3060af68318f754d75016d3"
+    ],
+    "passes": [
+      {
+        "price_at_start_of_pass": 1718.7734812248,
+        "events": [
+          {
+            "wallet": "0x86aef245207e2f93fba083d51852c91a7e711eb6",
+            "health_factor_at_trigger": 0.9998043771736541,
+            "close_factor": 0.5,
+            "collateral_sold": 196.49255316669186,
+            "price_before": 1718.7734812248,
+            "price_after": 0.5038875951527299,
+            "depth_exhausted": false
+          }
+        ]
+      },
+      {
+        "price_at_start_of_pass": 0.5038875951527299,
+        "events": [
+          {
+            "wallet": "0xcc997fe9fdd5957ca3060af68318f754d75016d3",
+            "health_factor_at_trigger": 0.0002936677151275921,
+            "close_factor": 1.0,
+            "collateral_sold": 2409.5415509133068,
+            "price_before": 0.5038875951527299,
+            "price_after": 0.0028469844512213033,
+            "depth_exhausted": false
+          }
+        ]
+      }
+    ]
+  }
+}
