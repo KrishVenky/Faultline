@@ -18,10 +18,17 @@ real Uniswap v3 tick liquidity, and iterates to a fixed point. It is a
 deterministic solver, not a model: no ML, no prediction, every liquidation
 mechanic is a published protocol parameter.
 
-The full build history, every assumption, every bug caught and how, is in
-[`BUILDLOG.md`](BUILDLOG.md). The project spec and working rules are in
-[`CLAUDE.md`](CLAUDE.md). This file is the quick-start and architecture
-overview; those two are the source of truth for everything else.
+This repo is one commit. The incremental record lives in BUILDLOG.md
+instead, timestamped across the actual build (Sept 5-6), including every
+wrong number, every bug, and how each was caught. We chose an honest
+single commit over a reconstructed history that would carry today's date
+on commits describing work done days earlier.
+
+**[Read BUILDLOG.md](BUILDLOG.md).**
+
+The project spec and working rules are in [`CLAUDE.md`](CLAUDE.md). This
+file is the quick-start and architecture overview; those two are the
+source of truth for everything else.
 
 ## The headline result
 
